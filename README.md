@@ -1,7 +1,7 @@
 BraindumpSnippetManager
 =======================
 
-Braindump Snippet Manager is a WPF application originally created by Nayden Gochev, who discontinued working on it. The application is perfect for developer coding presentations. I added some useful features and increased stability. Feel free to join and improve it :)
+Braindump Snippet Manager is a WPF application originally created by Nayden Gochev, who discontinued working on it. The application is perfect for developer coding presentations and tutorials. I added some useful features and increased stability. Feel free to join and improve it :)
 
 Features:
 - Insert a code snippet from the clipboard into program
