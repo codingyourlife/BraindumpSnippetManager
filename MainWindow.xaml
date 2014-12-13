@@ -1,0 +1,52 @@
+﻿<Controls:MetroWindow x:Class="SnippetManager.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="BrainDump" Height="355" MinWidth="13" MaxWidth="177" Width="177" Topmost="True" TextOptions.TextFormattingMode="Display"
+        Icon="Mattahan-Buuf-Clipboard-Manager.ico" ShowIconOnTitleBar="False" ShowCloseButton="False" ShowMinButton="true" ShowMaxRestoreButton="false"
+                      Name="mainWindow">
+    <Grid MinHeight="309">
+        <ListBox Margin="0,-3,0,38" Name="listSnippets" HorizontalContentAlignment="Left" 
+                 MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionMode="Single"
+                 SelectionChanged="ListSnippetsSelectionChanged" FontSize="12" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="ToolTip" Value="{Binding Data}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+        <Popup Placement="Mouse" Name="popupHint" HorizontalAlignment="Left"
+                 VerticalAlignment="Top" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Grid Background="White">
+                    <TextBlock  Background="White"
+                    x:Name="PopupTxt"
+                    TextAlignment="Center"
+                    VerticalAlignment="Center">
+
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </Popup>
+        <WrapPanel Height="25" Name="wrapPanel" VerticalAlignment="Bottom" Margin="0,0,0.4,-0.4">
+            <Grid>
+                    <Button x:Name="menu" Click="MenuClick" Content="Menu"/>
+            </Grid>
+            <Grid>
+                <Button Content="Present" Width="75" Click="Button_Click"/>
+            </Grid>
+        </WrapPanel>
+    </Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+</Controls:MetroWindow>
+    
