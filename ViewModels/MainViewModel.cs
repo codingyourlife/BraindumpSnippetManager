@@ -13,8 +13,6 @@
         public MainViewModel()
         {
             this.SnippetList = new ObservableCollection<ISnippetListItem>();
-
-            this.Add("waka", "woka{}");
         }
 
         private void SelectedSnippetChangedEvent(object sender, PropertyChangedEventArgs e)
