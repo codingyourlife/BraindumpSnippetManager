@@ -45,6 +45,9 @@
             <Button x:Name="menu" Content="Menu" Click="MenuClick" Grid.Column="0"/>
             <Button Content="Present" Click="PresentButton_Click" Grid.Column="1" />
         </Grid>
+        <Grid Grid.Row="1" Name="TinyButtonBar" Visibility="Hidden">
+            <Button Content="o" ToolTip="Move to other side" Click="MoveButton" Grid.Column="1" FontSize="6" />
+        </Grid>
         <Popup Placement="Mouse" Name="popupHint" HorizontalAlignment="Left"
                  VerticalAlignment="Top" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
             <Border BorderBrush="Black" BorderThickness="1">

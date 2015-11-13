@@ -1,4 +1,9 @@
-﻿namespace SnippetManager
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+
+namespace SnippetManager
 {
     using System;
     using System.IO;
@@ -11,6 +16,8 @@
     using ViewModels;
     using Models;
     using System.ComponentModel;
+    using System.Threading;
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -34,6 +41,7 @@
         }
 
         private bool IsClipboardManager { get; set; }
+        public Thread StayInFrontThread { get; private set; }
 
         private ContextMenu mainMenu;
         private ContextMenu snippetsMenu;
@@ -84,6 +92,10 @@
             var itemInsertSeparator = new MenuItem { Header = "insert separator" };
             itemInsertSeparator.Click += new RoutedEventHandler(InsertSeparatorClick);
             snippetsMenu.Items.Add(itemInsertSeparator);
+
+            var exit = new MenuItem { Header = "exit" };
+            exit.Click += Exit;
+            snippetsMenu.Items.Add(exit);
         }
 
         /// <summary>
@@ -166,6 +178,12 @@
         void ApplicationExit(object sender, ExitEventArgs e)
         {
             ChangeClipboardChain(this.Handle, nextClipboardViewer);
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            ChangeClipboardChain(this.Handle, nextClipboardViewer);
+            Environment.Exit(0);
         }
 
         private void ClearSnippetsList()
@@ -356,16 +374,18 @@
                 writer.Write(jsonToSave);
                 writer.Close();
             }
-         
         }
 
         private void PresentButton_Click(object sender, RoutedEventArgs e)
         {
             ButtonBar.Visibility = Visibility.Hidden;
+            TinyButtonBar.Visibility = Visibility.Visible;
+
+            //mainWindow.WindowState = WindowState.Maximized;
+            mainWindow.WindowStyle = WindowStyle.ToolWindow;
             mainWindow.ShowMinButton = false;
             mainWindow.ResizeMode = ResizeMode.NoResize;
             mainWindow.UseNoneWindowStyle = true;
-            mainWindow.WindowStyle = WindowStyle.ToolWindow;
             mainWindow.ShowInTaskbar = false;
             mainWindow.lstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
 
@@ -373,12 +393,20 @@
             int marginBottom = 25;
             mainWindow.Width = 13;
 
-            mainWindow.MaxWidth = MinWidth;
+            mainWindow.MaxWidth = 13;
             mainWindow.Height = SystemParameters.PrimaryScreenHeight - marginTop - marginBottom;
             mainWindow.Top = marginTop;
             mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
 
             this.IsClipboardManager = false;
+        }
+
+        private void MoveButton(object sender, RoutedEventArgs e)
+        {
+            if (mainWindow.Left == 0)
+                mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
+            else
+                mainWindow.Left = 0;
         }
 
         private void lstSnippets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -398,5 +426,6 @@
         {
             MainViewModel.SelectedSnippet = (Snippet)sender;
         }
+
     }
 }
