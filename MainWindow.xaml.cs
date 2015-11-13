@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Xml.Serialization;
-using MahApps.Metro.Controls;
-
-namespace SnippetManager
+﻿namespace SnippetManager
 {
+    using System;
+    using System.IO;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+    using MahApps.Metro.Controls;
+    using ViewModels;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public MainViewModel MainViewModel => DataContext as MainViewModel;
+
         private HwndSource source = null;
         private IntPtr nextClipboardViewer;
        
@@ -31,7 +30,6 @@ namespace SnippetManager
 
         private bool IsClipboardManager { get; set; }
 
-        private XmlSerializer serializer = new XmlSerializer(typeof(ArrayList), new Type[] { typeof(Snippet), typeof(String) });
         private ContextMenu mainMenu;
         private ContextMenu snippetsMenu;
 
@@ -60,7 +58,7 @@ namespace SnippetManager
         {
             snippetsMenu = new ContextMenu();
             snippetsMenu.IsOpen = false;
-            listSnippets.ContextMenu = snippetsMenu;
+            lstSnippets.ContextMenu = snippetsMenu;
 
             var itemInsertSnippet = new MenuItem { Header = "insert new snippet from clipboard" };
             itemInsertSnippet.Click += new RoutedEventHandler(InsertSnippetClick);
@@ -103,19 +101,19 @@ namespace SnippetManager
             mainMenuItemActAsClipboardManager.Click += ItemActAsClipboardManagerClick;
             mainMenu.Items.Add(mainMenuItemActAsClipboardManager);
 
-            var itemSave = new MenuItem { Header = "Save current snippets" };
+            var itemSave = new MenuItem { Header = "Save" };
             itemSave.Click += new RoutedEventHandler(ItemSaveClick);
             mainMenu.Items.Add(itemSave);
 
-            var itemLoad = new MenuItem { Header = "Load snippets" };
+            var itemLoad = new MenuItem { Header = "Load" };
             itemLoad.Click += new RoutedEventHandler(ItemLoadClick);
             mainMenu.Items.Add(itemLoad);
 
-            var itemNew = new MenuItem { Header = "New snippets" };
+            var itemNew = new MenuItem { Header = "New" };
             itemNew.Click += new RoutedEventHandler(ItemNewClick);
             mainMenu.Items.Add(itemNew);
 
-            var itemExit = new MenuItem { Header = "Exit snippet manager" };
+            var itemExit = new MenuItem { Header = "Exit" };
             itemExit.Click += new RoutedEventHandler(ItemExitClick);
             mainMenu.Items.Add(itemExit);
 
@@ -167,8 +165,7 @@ namespace SnippetManager
 
         private void ClearSnippetsList()
         {
-            listSnippets.Items.Clear();
-            Snippet.counter = 0;
+            MainViewModel.Clear();
         }
 
         private void ListSnippetsMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -178,99 +175,32 @@ namespace SnippetManager
 
         void InsertSeparatorClick(object sender, RoutedEventArgs e)
         {
-            listSnippets.Items.Add(new Snippet(Snippet.TheSeparatorSnippet, Snippet.TheSeparatorSnippet));
-            Snippet.counter = 0;
+            MainViewModel.AddSeperator();
         }
 
         void DeleteSnippetClick(object sender, RoutedEventArgs e)
         {
-            if (listSnippets.SelectedIndex != -1)
+            if (lstSnippets.SelectedIndex != -1)
             {
-                //change the item counters to be -1. example #3 after removing #1 should become the #2
-                for (int i = listSnippets.SelectedIndex; i < listSnippets.Items.Count; i++)
-                {
-                    if (listSnippets.Items[i] is String) // than it is the separator, after this separator the count starts from #1  so stop changes
-                    {
-                        break;
-                    }
-                    Snippet item = listSnippets.Items[i] as Snippet;
-                    item.Id--;
-                    listSnippets.Items.Refresh();
-                }
-                listSnippets.Items.RemoveAt(listSnippets.SelectedIndex);
-                Snippet.counter = Snippet.counter - 1;
+                MainViewModel.RemoveSelected();
             }
         }
 
         void MoveSnippetUpClick(object sender, RoutedEventArgs e)
         {
-            this.MoveSnippetUp();
+            int selectedIndex = lstSnippets.SelectedIndex;
+            if (selectedIndex != -1 && selectedIndex != 0)
+            {
+                MainViewModel.SwapSnippets(selectedIndex, selectedIndex - 1);
+            }
         }
 
         void MoveSnippetDownClick(object sender, RoutedEventArgs e)
         {
-            this.MoveSnippetDown();
-        }
-
-        private void MoveSnippetUp()
-        {
-            int selectedIndex = listSnippets.SelectedIndex;
-            if (selectedIndex != -1 && selectedIndex != 0)
-            { //otherwise on top allready
-                //get selected item and the one to switch
-                var selectedItem = (Snippet)listSnippets.Items[selectedIndex];
-
-                //remove and re-insert those 2
-                listSnippets.Items.Remove(selectedItem);
-                listSnippets.Items.Insert(selectedIndex - 1, selectedItem);
-
-                this.UpdateItemNumbers();
-
-                listSnippets.Items.Refresh();
-            }
-        }
-
-        private void MoveSnippetDown()
-        {
-            int selectedIndex = listSnippets.SelectedIndex;
-            if (selectedIndex != -1 && selectedIndex != listSnippets.Items.Count - 1)
-            { //otherwise on top allready
-                //get selected item and the one to switch
-                var selectedItem = (Snippet)listSnippets.Items[selectedIndex];
-
-                //remove and re-insert those 2
-                listSnippets.Items.Remove(selectedItem);
-                listSnippets.Items.Insert(selectedIndex + 1, selectedItem);
-
-                this.UpdateItemNumbers();
-
-                listSnippets.Items.Refresh();
-            }
-        }
-
-        private void UpdateItemNumbers()
-        {
-            //update item numbers
-            var newId = 1;
-            for (int i = 0; i < listSnippets.Items.Count; i++)
+            int selectedIndex = lstSnippets.SelectedIndex;
+            if (selectedIndex != -1 && selectedIndex != lstSnippets.Items.Count - 1)
             {
-                //get item via loop
-                var item = (Snippet)listSnippets.Items[i];
-
-                if (item.Data.Equals(Snippet.TheSeparatorSnippet))
-                { //reset newId counter when separator
-                    newId = 0;
-                }
-
-                if (newId != 0)
-                { //update id if not separator
-                    item.Id = newId;
-
-                    listSnippets.Items.Remove(item);
-                    listSnippets.Items.Insert(i, item);
-                }
-
-                newId++;
+                MainViewModel.SwapSnippets(selectedIndex, selectedIndex + 1);
             }
         }
 
@@ -296,22 +226,26 @@ namespace SnippetManager
                 var clipboardString = clipbaordData as String;
                 if(clipboardString != null)
                 {
-                    if (!listSnippets.Items.Cast<Snippet>().Where(item => item.Data == clipboardString).Any())
+                    if (!MainViewModel.ItemWithDataExists(clipboardString))
                     {
-                        var snippet = new Snippet(clipboardString, clipboardString);
-                        listSnippets.Items.Add(snippet);    
+                        this.AddSnippet(clipboardString);
                     }
                 }
             }
         }
 
+        private void AddSnippet(string clipboardString)
+        {
+            MainViewModel.Add(clipboardString, clipboardString);
+        }
+
         private void ListSnippetsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             popupHint.IsOpen = false;
-            if (listSnippets.SelectedIndex != -1 && !(listSnippets.SelectedItem is string))
+            if (lstSnippets.SelectedIndex != -1 && !(lstSnippets.SelectedItem is string))
             {
-                var selectedSnipper = listSnippets.Items[listSnippets.SelectedIndex] as Snippet;
-                Clipboard.SetText(selectedSnipper.Data);
+                MainViewModel.SelectedSnippet = MainViewModel.GetItemByListId(lstSnippets.SelectedIndex);
+                Clipboard.SetText(MainViewModel.SelectedSnippet.Data);
             }
         }
 
@@ -371,12 +305,11 @@ namespace SnippetManager
 
         void ItemLoadClick(object sender, RoutedEventArgs e)
         { 
-            ArrayList listToSerialize;
              // Configure save file dialog box
             Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
             openDialog.FileName = "New Snippet"; // Default file name
-            openDialog.DefaultExt = ".xml"; // Default file extension
-            openDialog.Filter = "XML documents (.xml)|*.xml"; // Filter files by extension
+            openDialog.DefaultExt = ".json"; // Default file extension
+            openDialog.Filter = "JSON documents (.json)|*.json"; // Filter files by extension
 
             // Show save file dialog box
             Nullable<bool> result = openDialog.ShowDialog();
@@ -386,30 +319,21 @@ namespace SnippetManager
             {
                 string filename = openDialog.FileName;
                 TextReader reader = new StreamReader(filename);
-                listToSerialize = (ArrayList) serializer.Deserialize(reader);
-                reader.Close();
-                listSnippets.Items.Clear();
-                foreach (Object item in listToSerialize)
-                {
-                    listSnippets.Items.Add(item);
-                }
+
+                //render json
+                var fileContent = reader.ReadToEnd();
+                MainViewModel.DeserializeList(fileContent);
+                MainViewModel.SelectedSnippet = null;
             }  
         }
 
         void ItemSaveClick(object sender, RoutedEventArgs e)
         {
-            ArrayList listToSerialize=new ArrayList();
-
-            foreach (var item in listSnippets.Items)
-            {
-                listToSerialize.Add(item);
-            }
-
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog saveDialog = new Microsoft.Win32.SaveFileDialog();
             saveDialog.FileName = "New Snippet"; // Default file name
-            saveDialog.DefaultExt = ".xml"; // Default file extension
-            saveDialog.Filter = "XML documents (.xml)|*.xml"; // Filter files by extension
+            saveDialog.DefaultExt = ".json"; // Default file extension
+            saveDialog.Filter = "JSON documents (.json)|*.json"; // Filter files by extension
 
             // Show save file dialog box
             Nullable<bool> result = saveDialog.ShowDialog();
@@ -419,26 +343,37 @@ namespace SnippetManager
             {
                 // Save document
                 string filename = saveDialog.FileName;
+
+                //serialize list as JSON
+                string jsonToSave = MainViewModel.SerializeList();
+
                 TextWriter writer = new StreamWriter(filename);
-                serializer.Serialize(writer, listToSerialize);
+                writer.Write(jsonToSave);
                 writer.Close();
             }
          
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PresentButton_Click(object sender, RoutedEventArgs e)
         {
-            wrapPanel.Visibility = Visibility.Hidden;
-            mainWindow.Width = 13;
-            mainWindow.ResizeMode = ResizeMode.NoResize;
-            mainWindow.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+            ButtonBar.Visibility = Visibility.Hidden;
             mainWindow.ShowMinButton = false;
-            //mainWindow.Left = SystemParameters.PrimaryScreenWidth - this.Width;
-            mainWindow.Left = 0;
-            mainWindow.Top = 0;
+            mainWindow.ResizeMode = ResizeMode.NoResize;
+            mainWindow.UseNoneWindowStyle = true;
+            mainWindow.WindowStyle = WindowStyle.ToolWindow;
+            mainWindow.ShowInTaskbar = false;
+            mainWindow.lstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+
+            int marginTop = 25;
+            int marginBottom = 25;
+            mainWindow.Width = 13;
+
+            mainWindow.MaxWidth = MinWidth;
+            mainWindow.Height = SystemParameters.PrimaryScreenHeight - marginTop - marginBottom;
+            mainWindow.Top = marginTop;
+            mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
 
             this.IsClipboardManager = false;
         }
-
     }
 }
