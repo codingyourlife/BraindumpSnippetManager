@@ -1,0 +1,19 @@
+﻿<Window x:Class="SnippetManager.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="using:SnippetManager"
+        DataContext="{Binding Source={StaticResource Locator}, Path=EditViewModel}"
+        Title="EditWindow" Height="431.039" Width="667.72">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="182*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="TxtLabel" Height="23" Margin="10,10,9.6,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding SnippetToEdit.Label, Mode=TwoWay}"/>
+        <TextBox x:Name="textBox" Margin="10,3.066,9.6,9.6" Grid.Row="1"  Text="{Binding SnippetToEdit.Data, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+    </Grid>
+</Window>

@@ -9,12 +9,17 @@
     using System.Windows.Interop;
     using MahApps.Metro.Controls;
     using ViewModels;
+    using Models;
+    using System.ComponentModel;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Access to the ViewModel.
+        /// </summary>
         public MainViewModel MainViewModel => DataContext as MainViewModel;
 
         private HwndSource source = null;
@@ -244,7 +249,7 @@
             popupHint.IsOpen = false;
             if (lstSnippets.SelectedIndex != -1 && !(lstSnippets.SelectedItem is string))
             {
-                MainViewModel.SelectedSnippet = MainViewModel.GetItemByListId(lstSnippets.SelectedIndex);
+                MainViewModel.SelectSnippet(MainViewModel.GetItemByListId(lstSnippets.SelectedIndex));
                 Clipboard.SetText(MainViewModel.SelectedSnippet.Data);
             }
         }
@@ -374,6 +379,24 @@
             mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
 
             this.IsClipboardManager = false;
+        }
+
+        private void lstSnippets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lstSnippets.SelectedIndex != -1)
+            {
+                if(!MainViewModel.SelectedSnippet.IsSeperator)
+                {
+                    var editWindow = new EditWindow((Snippet)MainViewModel.SelectedSnippet);
+                    editWindow.Show();
+                    editWindow.EditViewModel.SnippetToEdit.PropertyChanged += EditWindowChange;
+                }
+            }
+        }
+
+        private void EditWindowChange(object sender, PropertyChangedEventArgs e)
+        {
+            MainViewModel.SelectedSnippet = (Snippet)sender;
         }
     }
 }

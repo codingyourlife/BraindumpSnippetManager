@@ -6,6 +6,11 @@
 
     public class Snippet : ViewModelBase, ISnippetListItem
     {
+        public Snippet()
+        {
+            this.uniqueGuid = Guid.NewGuid();
+        }
+
         private int id = 0;
         public int Id {
             get
@@ -35,6 +40,14 @@
                 }
                 this.label = value;
                 this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(this.ToolTipText));
+            }
+        }
+
+        public string ToolTipText {
+            get
+            {
+                return this.Label + "\r\n" + this.Data;
             }
         }
 
@@ -48,9 +61,20 @@
             {
                 data = value;
                 this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(this.ToolTipText));
             }
         }
         public bool IsSeperator { get { return false; } }
+
+        private Guid uniqueGuid;
+
+        public Guid UniqueGuid
+        {
+            get
+            {
+                return uniqueGuid;
+            }
+        }
 
         public Snippet(int id, String label, String data)
         {

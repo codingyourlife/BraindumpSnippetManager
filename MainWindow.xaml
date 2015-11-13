@@ -15,10 +15,10 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <ListBox Name="lstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
-                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionChanged="ListSnippetsSelectionChanged">
+                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionChanged="ListSnippetsSelectionChanged" MouseDoubleClick="lstSnippets_MouseDoubleClick">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="ToolTip" Value="{Binding Data}"/>
+                        <Setter Property="ToolTip" Value="{Binding ToolTipText}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
 

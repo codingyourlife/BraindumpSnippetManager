@@ -6,12 +6,22 @@
     using GalaSoft.MvvmLight;
     using System.Linq;
     using Newtonsoft.Json;
+    using System.ComponentModel;
 
     public class MainViewModel : ViewModelBase
     {
         public MainViewModel()
         {
             this.SnippetList = new ObservableCollection<ISnippetListItem>();
+
+            this.Add("waka", "woka{}");
+        }
+
+        private void SelectedSnippetChangedEvent(object sender, PropertyChangedEventArgs e)
+        {
+            Snippet modifiedSnippet = (Snippet)sender;
+            //this.SnippetList.First(x => x.UniqueGuid == modifiedSnippet.UniqueGuid);
+            this.SelectedSnippet = modifiedSnippet;
         }
 
         private ObservableCollection<ISnippetListItem>  snippetList = new ObservableCollection<ISnippetListItem>();
@@ -19,7 +29,25 @@
 
         public ObservableCollection<ISnippetListItem> SnippetList { get { return snippetList; } set { snippetList = value; } }
 
-        public ISnippetListItem SelectedSnippet { get; set; }
+        private ISnippetListItem selectedSnippet;
+        public ISnippetListItem SelectedSnippet
+        {
+            get
+            {
+                return selectedSnippet;
+            }
+            set
+            {
+                selectedSnippet = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
+        internal void SelectSnippet(ISnippetListItem snippetListItem)
+        {
+            this.SelectedSnippet = snippetListItem;
+            this.SelectedSnippet.PropertyChanged += SelectedSnippetChangedEvent;
+        }
 
         internal bool ItemWithDataExists(string data)
         {
