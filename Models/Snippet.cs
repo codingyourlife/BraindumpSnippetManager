@@ -3,6 +3,7 @@
     using GalaSoft.MvvmLight;
     using Interfaces;
     using System;
+    using System.Text.RegularExpressions;
 
     public class Snippet : ViewModelBase, ISnippetListItem
     {
@@ -24,6 +25,8 @@
             }
         }
 
+        private readonly Regex trimmer = new Regex(@"\s\s+");
+
         private string label;
         public string Label
         {
@@ -33,12 +36,7 @@
             }
             set
             {
-                if (value != null && value.Length > 20)
-                {
-                    value = value.Substring(0, 20);
-                    value.Replace("\r\n", "");
-                }
-                this.label = value;
+                this.label = trimmer.Replace(value, " ").Replace("\r\n", "");
                 this.RaisePropertyChanged();
                 this.RaisePropertyChanged(nameof(this.ToolTipText));
             }
@@ -47,7 +45,7 @@
         public string ToolTipText {
             get
             {
-                return this.Label + "\r\n" + this.Data;
+                return "#" + this.Label + "\r\n" + this.Data;
             }
         }
 
