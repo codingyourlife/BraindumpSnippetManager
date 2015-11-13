@@ -177,11 +177,13 @@ namespace SnippetManager
 
         void ApplicationExit(object sender, ExitEventArgs e)
         {
+            this.Export();
             ChangeClipboardChain(this.Handle, nextClipboardViewer);
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
+            this.Export();
             ChangeClipboardChain(this.Handle, nextClipboardViewer);
             Environment.Exit(0);
         }
@@ -351,6 +353,11 @@ namespace SnippetManager
         }
 
         void ItemSaveClick(object sender, RoutedEventArgs e)
+        {
+            this.Export();
+        }
+
+        private void Export()
         {
             // Configure save file dialog box
             Microsoft.Win32.SaveFileDialog saveDialog = new Microsoft.Win32.SaveFileDialog();
