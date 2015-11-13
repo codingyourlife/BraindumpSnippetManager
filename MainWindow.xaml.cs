@@ -388,6 +388,7 @@ namespace SnippetManager
             mainWindow.UseNoneWindowStyle = true;
             mainWindow.ShowInTaskbar = false;
             mainWindow.lstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            mainWindow.lstSnippets.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
 
             int marginTop = 25;
             int marginBottom = 25;
