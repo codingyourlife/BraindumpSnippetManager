@@ -1,9 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Interop;
-
-namespace SnippetManager
+﻿namespace SnippetManager
 {
     using System;
     using System.IO;
@@ -71,7 +66,7 @@ namespace SnippetManager
         {
             snippetsMenu = new ContextMenu();
             snippetsMenu.IsOpen = false;
-            lstSnippets.ContextMenu = snippetsMenu;
+            LstSnippets.ContextMenu = snippetsMenu;
 
             var itemInsertSnippet = new MenuItem { Header = "insert new snippet from clipboard" };
             itemInsertSnippet.Click += new RoutedEventHandler(InsertSnippetClick);
@@ -205,7 +200,7 @@ namespace SnippetManager
 
         void DeleteSnippetClick(object sender, RoutedEventArgs e)
         {
-            if (lstSnippets.SelectedIndex != -1)
+            if (LstSnippets.SelectedIndex != -1)
             {
                 MainViewModel.RemoveSelected();
             }
@@ -213,7 +208,12 @@ namespace SnippetManager
 
         void MoveSnippetUpClick(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = lstSnippets.SelectedIndex;
+            MoveSnippetUp();
+        }
+
+        private void MoveSnippetUp()
+        {
+            int selectedIndex = LstSnippets.SelectedIndex;
             if (selectedIndex != -1 && selectedIndex != 0)
             {
                 MainViewModel.SwapSnippets(selectedIndex, selectedIndex - 1);
@@ -222,8 +222,13 @@ namespace SnippetManager
 
         void MoveSnippetDownClick(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = lstSnippets.SelectedIndex;
-            if (selectedIndex != -1 && selectedIndex != lstSnippets.Items.Count - 1)
+            MoveSnippetDown();
+        }
+
+        private void MoveSnippetDown()
+        {
+            int selectedIndex = LstSnippets.SelectedIndex;
+            if (selectedIndex != -1 && selectedIndex != LstSnippets.Items.Count - 1)
             {
                 MainViewModel.SwapSnippets(selectedIndex, selectedIndex + 1);
             }
@@ -267,9 +272,9 @@ namespace SnippetManager
         private void ListSnippetsSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             popupHint.IsOpen = false;
-            if (lstSnippets.SelectedIndex != -1 && !(lstSnippets.SelectedItem is string))
+            if (LstSnippets.SelectedIndex != -1 && !(LstSnippets.SelectedItem is string))
             {
-                MainViewModel.SelectSnippet(MainViewModel.GetItemByListId(lstSnippets.SelectedIndex));
+                MainViewModel.SelectSnippet(MainViewModel.GetItemByListId(LstSnippets.SelectedIndex));
                 Clipboard.SetText(MainViewModel.SelectedSnippet.Data);
             }
         }
@@ -339,7 +344,7 @@ namespace SnippetManager
             // Show save file dialog box
             Nullable<bool> result = openDialog.ShowDialog();
 
-            // Process save file dialog box results
+            // Process load file dialog box results
             if (result == true)
             {
                 string filename = openDialog.FileName;
@@ -389,37 +394,39 @@ namespace SnippetManager
             TinyButtonBar.Visibility = Visibility.Visible;
 
             //mainWindow.WindowState = WindowState.Maximized;
-            mainWindow.WindowStyle = WindowStyle.ToolWindow;
-            mainWindow.ShowMinButton = false;
-            mainWindow.ResizeMode = ResizeMode.NoResize;
-            mainWindow.UseNoneWindowStyle = true;
-            mainWindow.ShowInTaskbar = false;
-            mainWindow.lstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
-            mainWindow.lstSnippets.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            WindowMainWindow.WindowStyle = WindowStyle.ToolWindow;
+            WindowMainWindow.ShowMinButton = false;
+            WindowMainWindow.ResizeMode = ResizeMode.NoResize;
+            WindowMainWindow.UseNoneWindowStyle = true;
+            WindowMainWindow.ShowInTaskbar = false;
+            WindowMainWindow.LstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
+            WindowMainWindow.LstSnippets.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
 
             int marginTop = 25;
             int marginBottom = 25;
-            mainWindow.Width = 13;
+            WindowMainWindow.Width = 13;
 
-            mainWindow.MaxWidth = 13;
-            mainWindow.Height = SystemParameters.PrimaryScreenHeight - marginTop - marginBottom;
-            mainWindow.Top = marginTop;
-            mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
+            WindowMainWindow.MaxWidth = 13;
+            WindowMainWindow.Height = SystemParameters.PrimaryScreenHeight - marginTop - marginBottom;
+            WindowMainWindow.Top = marginTop;
+            WindowMainWindow.Left = SystemParameters.PrimaryScreenWidth - WindowMainWindow.Width;
+
+            MainViewModel.IsInPresentMode = true;
 
             this.IsClipboardManager = false;
         }
 
         private void MoveButton(object sender, RoutedEventArgs e)
         {
-            if (mainWindow.Left == 0)
-                mainWindow.Left = SystemParameters.PrimaryScreenWidth - mainWindow.Width;
+            if (WindowMainWindow.Left == 0)
+                WindowMainWindow.Left = SystemParameters.PrimaryScreenWidth - WindowMainWindow.Width;
             else
-                mainWindow.Left = 0;
+                WindowMainWindow.Left = 0;
         }
 
         private void lstSnippets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (lstSnippets.SelectedIndex != -1)
+            if (LstSnippets.SelectedIndex != -1)
             {
                 if(!MainViewModel.SelectedSnippet.IsSeperator)
                 {
@@ -435,5 +442,21 @@ namespace SnippetManager
             MainViewModel.SelectedSnippet = (Snippet)sender;
         }
 
+        private void LstSnippets_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!MainViewModel.IsInPresentMode)
+            {
+                if (e.Key == Key.Up)
+                {
+                    this.MoveSnippetUp();
+                    e.Handled = true;
+                }
+                else if (e.Key == Key.Down)
+                {
+                    this.MoveSnippetDown();
+                    e.Handled = true;
+                }
+            }
+        }
     }
 }

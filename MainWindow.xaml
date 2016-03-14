@@ -2,11 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="BrainDump" Height="355" MinWidth="13" MaxWidth="177" Width="177" Topmost="True" TextOptions.TextFormattingMode="Display"
+    Title="BrainDump" Height="472.6" MinWidth="13" MaxWidth="177" Width="177" Topmost="True" TextOptions.TextFormattingMode="Display"
     Icon="Mattahan-Buuf-Clipboard-Manager.ico" ShowIconOnTitleBar="False" ShowCloseButton="False" ShowMinButton="true" ShowMaxRestoreButton="false"
     xmlns:local="using:SnippetManager"
     DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"
-    Name="mainWindow">
+    Name="WindowMainWindow">
 
     <Grid MinHeight="309">
         <Grid.RowDefinitions>
@@ -14,8 +14,9 @@
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <ListBox Name="lstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
-                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionChanged="ListSnippetsSelectionChanged" MouseDoubleClick="lstSnippets_MouseDoubleClick">
+            <ListBox x:Name="LstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
+                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionChanged="ListSnippetsSelectionChanged" MouseDoubleClick="lstSnippets_MouseDoubleClick" PreviewKeyDown="LstSnippets_PreviewKeyDown"
+                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="ToolTip" Value="{Binding ToolTipText}"/>

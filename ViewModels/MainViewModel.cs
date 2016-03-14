@@ -41,6 +41,8 @@
             }
         }
 
+        public bool IsInPresentMode { get; set; }
+
         internal void SelectSnippet(ISnippetListItem snippetListItem)
         {
             this.SelectedSnippet = snippetListItem;
@@ -49,7 +51,7 @@
 
         internal bool ItemWithDataExists(string data)
         {
-            return this.SnippetList.Where(x => x.Data == data).Any();
+            return this.SnippetList.Any(x => x.Data == data);
         }
 
         internal void SwapSnippets(int indexA, int indexB)
@@ -63,6 +65,8 @@
             this.SnippetList[indexB] = tmpA;
 
             this.FixIds();
+
+            this.SelectedSnippet = this.SnippetList[indexB];
         }
 
         private void FixIds()
