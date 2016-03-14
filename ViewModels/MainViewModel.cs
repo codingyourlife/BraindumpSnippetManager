@@ -101,7 +101,7 @@
         internal void AddSeperator()
         {
             this.SnippetList.Add(new Seperator());
-            this.SnippetCounter = 0;
+            this.SnippetCounter = 1;
             this.RaisePropertyChanged(nameof(this.SnippetList));
         }
 
