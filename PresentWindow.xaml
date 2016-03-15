@@ -1,0 +1,52 @@
+﻿<Controls:MetroWindow x:Class="SnippetManager.PresentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SnippetManager"
+        Title="PresentWindow"
+        Name="PresentWindowWindow"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Height="300"
+        Width="20" MaxWidth="20"
+        Topmost="True"
+        ShowMinButton="False"
+        UseNoneWindowStyle="True"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}" Closed="PresentWindowWindow_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="293*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ListBox x:Name="LstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
+                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}"
+                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="ToolTip" Value="{Binding ToolTipText}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding Id}" Grid.Column="0" />
+                            <TextBlock Text="{Binding Label}" Grid.Column="1" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1" Name="TinyButtonBar">
+            <Button Content="o" ToolTip="Move to other side" Click="MoveButton" FontSize="6" />
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

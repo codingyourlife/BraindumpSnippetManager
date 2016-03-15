@@ -2,21 +2,23 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="BrainDump" Height="472.6" MinWidth="13" MaxWidth="177" Width="177" Topmost="True" TextOptions.TextFormattingMode="Display"
+    Title="BrainDump" Height="472.6" MinWidth="13" MaxWidth="177" Width="177" TextOptions.TextFormattingMode="Display"
     Icon="Mattahan-Buuf-Clipboard-Manager.ico" ShowIconOnTitleBar="False" ShowCloseButton="False" ShowMinButton="true" ShowMaxRestoreButton="false"
     xmlns:local="using:SnippetManager"
     DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"
-    Name="WindowMainWindow">
+    Name="WindowMainWindow" Topmost="{Binding IsTopmost, Mode=TwoWay}">
 
-    <Grid MinHeight="309">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="293*"/>
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <ListBox x:Name="LstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
-                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseRightButtonDown="ListSnippetsMouseRightButtonDown" SelectionChanged="ListSnippetsSelectionChanged" MouseDoubleClick="lstSnippets_MouseDoubleClick" PreviewKeyDown="LstSnippets_PreviewKeyDown"
-                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}">
+                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseDoubleClick="lstSnippets_MouseDoubleClick" PreviewKeyDown="LstSnippets_PreviewKeyDown"
+                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}"
+                     ContextMenu="{StaticResource ContextMenuSnippetsList}">
+
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="ToolTip" Value="{Binding ToolTipText}"/>
@@ -43,14 +45,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="menu" Content="Menu" Click="MenuClick" Grid.Column="0"/>
+            <Button x:Name="Menu" Content="Menu" Command="{Binding OpenMenu}" Grid.Column="0"/>
             <Button Content="Present" Click="PresentButton_Click" Grid.Column="1" />
         </Grid>
-        <Grid Grid.Row="1" Name="TinyButtonBar" Visibility="Hidden">
-            <Button Content="o" ToolTip="Move to other side" Click="MoveButton" Grid.Column="1" FontSize="6" />
-        </Grid>
-        <Popup Placement="Mouse" Name="popupHint" HorizontalAlignment="Left"
-                 VerticalAlignment="Top" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
+        <Popup Placement="Mouse" Name="PopupHint" HorizontalAlignment="Left"
+                 VerticalAlignment="Top" IsOpen="{Binding PopupHintIsOpen, Mode=TwoWay}" AllowsTransparency="True" PopupAnimation="Slide">
             <Border BorderBrush="Black" BorderThickness="1">
                 <Grid Background="White">
                     <TextBlock Background="White"

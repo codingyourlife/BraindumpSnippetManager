@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         xmlns:local="using:SnippetManager"
         DataContext="{Binding Source={StaticResource Locator}, Path=EditViewModel}"
-        Title="EditWindow" Height="430" Width="668">
+        Title="EditWindow" Height="430" Width="668" Topmost="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="19*"/>
