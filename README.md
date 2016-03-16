@@ -13,3 +13,9 @@ Features:
 - Act as Clipboard Manager. Giving you the ability to use it as a clipboard manager for text only.
 - Move snippet up/down with arrows or context menu
 - Presenting mode to dock it to the left/right side and only show the numbers
+
+<b>MainView</b><br/>
+![Alt text](Screenshots/SnippetManager1.JPG?raw=true "MainView")
+
+<b>PresentationView</b><br/>
+![Alt text](Screenshots/SnippetManager2.JPG?raw=true "PresentationView")
