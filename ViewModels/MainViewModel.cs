@@ -69,7 +69,6 @@
             {
                 selectedSnippet = value;
 
-                this.PopupHintIsOpen = false;
                 if (selectedSnippet != null)
                 {
                     Clipboard.SetText(selectedSnippet.Data);
@@ -399,7 +398,5 @@
                 this.SwapSnippets(selectedIndex, selectedIndex + 1);
             }
         }
-
-        public bool PopupHintIsOpen { get; set; }
     }
 }

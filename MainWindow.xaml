@@ -48,19 +48,6 @@
             <Button x:Name="Menu" Content="Menu" Command="{Binding OpenMenu}" Grid.Column="0"/>
             <Button Content="Present" Click="PresentButton_Click" Grid.Column="1" />
         </Grid>
-        <Popup Placement="Mouse" Name="PopupHint" HorizontalAlignment="Left"
-                 VerticalAlignment="Top" IsOpen="{Binding PopupHintIsOpen, Mode=TwoWay}" AllowsTransparency="True" PopupAnimation="Slide">
-            <Border BorderBrush="Black" BorderThickness="1">
-                <Grid Background="White">
-                    <TextBlock Background="White"
-                    x:Name="PopupTxt"
-                    TextAlignment="Center"
-                    VerticalAlignment="Center">
-
-                    </TextBlock>
-                </Grid>
-            </Border>
-        </Popup>
     </Grid>
 </Controls:MetroWindow>
     

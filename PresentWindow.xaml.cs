@@ -1,5 +1,6 @@
 ﻿namespace SnippetManager
 {
+    using System;
     using System.Windows;
     using ViewModels;
     using System.Windows.Controls;
@@ -20,12 +21,14 @@
         {
             InitializeComponent();
 
+            //position and margin
             int marginTop = 25;
             int marginBottom = 25;
             PresentWindowWindow.Height = SystemParameters.PrimaryScreenHeight - marginTop - marginBottom;
             PresentWindowWindow.Top = marginTop;
             PresentWindowWindow.Left = SystemParameters.PrimaryScreenWidth - PresentWindowWindow.Width;
 
+            //Disable ScrollBars
             this.LstSnippets.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
             this.LstSnippets.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Disabled);
         }

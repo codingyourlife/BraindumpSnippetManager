@@ -1,4 +1,6 @@
-﻿namespace SnippetManager
+﻿using System.Windows.Controls;
+
+namespace SnippetManager
 {
     using System;
     using System.Windows;
@@ -27,6 +29,9 @@
 
             //listen to clipboard
             ClipboardNotification.ClipboardUpdate += ClipboardUpdate;
+
+            //Do not hide Tooltips fix (http://stackoverflow.com/a/8308254/828184)
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(Int32.MaxValue));
         }
 
         private void ClipboardUpdate(object sender, EventArgs e)
