@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace SnippetManager
+﻿namespace SnippetManager
 {
     using System;
     using System.Windows;
@@ -9,7 +7,7 @@ namespace SnippetManager
     using ViewModels;
     using Models;
     using System.ComponentModel;
-
+    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
