@@ -54,6 +54,14 @@
     <ApplicationIcon>Mattahan-Buuf-Clipboard-Manager.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.2.0.37222, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>packages\MvvmLightLibs.5.2.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
       <Private>True</Private>
@@ -66,25 +74,48 @@
       <HintPath>packages\MvvmLightLibs.5.2.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MahApps.Metro, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <HintPath>packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.6.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\MahApps.Metro.1.1.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -171,6 +202,8 @@
     </None>
     <AppDesigner Include="Properties\" />
     <Resource Include="Resources\Entypo.ttf" />
+    <None Include="Scripts\jquery-2.2.3.min.map" />
+    <None Include="Scripts\jquery.mobile-1.4.5.min.map" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -198,10 +231,268 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
     <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\knockout-3.4.0.debug.js" />
+    <Content Include="Scripts\knockout-3.4.0.js" />
+    <Resource Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Resource Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Resource Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Resource Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Resource Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Resource Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Resource Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Resource Include="Content\images\ajax-loader.gif" />
+    <Resource Include="Content\images\icons-png\action-black.png" />
+    <Resource Include="Content\images\icons-png\action-white.png" />
+    <Resource Include="Content\images\icons-png\alert-black.png" />
+    <Resource Include="Content\images\icons-png\alert-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-l-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-l-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-r-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-r-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-d-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-l-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-l-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-r-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-r-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-l-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-l-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-r-black.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-r-white.png" />
+    <Resource Include="Content\images\icons-png\arrow-u-white.png" />
+    <Resource Include="Content\images\icons-png\audio-black.png" />
+    <Resource Include="Content\images\icons-png\audio-white.png" />
+    <Resource Include="Content\images\icons-png\back-black.png" />
+    <Resource Include="Content\images\icons-png\back-white.png" />
+    <Resource Include="Content\images\icons-png\bars-black.png" />
+    <Resource Include="Content\images\icons-png\bars-white.png" />
+    <Resource Include="Content\images\icons-png\bullets-black.png" />
+    <Resource Include="Content\images\icons-png\bullets-white.png" />
+    <Resource Include="Content\images\icons-png\calendar-black.png" />
+    <Resource Include="Content\images\icons-png\calendar-white.png" />
+    <Resource Include="Content\images\icons-png\camera-black.png" />
+    <Resource Include="Content\images\icons-png\camera-white.png" />
+    <Resource Include="Content\images\icons-png\carat-d-black.png" />
+    <Resource Include="Content\images\icons-png\carat-d-white.png" />
+    <Resource Include="Content\images\icons-png\carat-l-black.png" />
+    <Resource Include="Content\images\icons-png\carat-l-white.png" />
+    <Resource Include="Content\images\icons-png\carat-r-black.png" />
+    <Resource Include="Content\images\icons-png\carat-r-white.png" />
+    <Resource Include="Content\images\icons-png\carat-u-black.png" />
+    <Resource Include="Content\images\icons-png\carat-u-white.png" />
+    <Resource Include="Content\images\icons-png\check-black.png" />
+    <Resource Include="Content\images\icons-png\check-white.png" />
+    <Resource Include="Content\images\icons-png\clock-black.png" />
+    <Resource Include="Content\images\icons-png\clock-white.png" />
+    <Resource Include="Content\images\icons-png\cloud-black.png" />
+    <Resource Include="Content\images\icons-png\cloud-white.png" />
+    <Resource Include="Content\images\icons-png\comment-black.png" />
+    <Resource Include="Content\images\icons-png\comment-white.png" />
+    <Resource Include="Content\images\icons-png\delete-black.png" />
+    <Resource Include="Content\images\icons-png\delete-white.png" />
+    <Resource Include="Content\images\icons-png\edit-black.png" />
+    <Resource Include="Content\images\icons-png\edit-white.png" />
+    <Resource Include="Content\images\icons-png\eye-black.png" />
+    <Resource Include="Content\images\icons-png\eye-white.png" />
+    <Resource Include="Content\images\icons-png\forbidden-black.png" />
+    <Resource Include="Content\images\icons-png\forbidden-white.png" />
+    <Resource Include="Content\images\icons-png\forward-black.png" />
+    <Resource Include="Content\images\icons-png\forward-white.png" />
+    <Resource Include="Content\images\icons-png\gear-black.png" />
+    <Resource Include="Content\images\icons-png\gear-white.png" />
+    <Resource Include="Content\images\icons-png\grid-black.png" />
+    <Resource Include="Content\images\icons-png\grid-white.png" />
+    <Resource Include="Content\images\icons-png\heart-black.png" />
+    <Resource Include="Content\images\icons-png\heart-white.png" />
+    <Resource Include="Content\images\icons-png\home-black.png" />
+    <Resource Include="Content\images\icons-png\home-white.png" />
+    <Resource Include="Content\images\icons-png\info-black.png" />
+    <Resource Include="Content\images\icons-png\info-white.png" />
+    <Resource Include="Content\images\icons-png\location-black.png" />
+    <Resource Include="Content\images\icons-png\location-white.png" />
+    <Resource Include="Content\images\icons-png\lock-black.png" />
+    <Resource Include="Content\images\icons-png\lock-white.png" />
+    <Resource Include="Content\images\icons-png\mail-black.png" />
+    <Resource Include="Content\images\icons-png\mail-white.png" />
+    <Resource Include="Content\images\icons-png\minus-black.png" />
+    <Resource Include="Content\images\icons-png\minus-white.png" />
+    <Resource Include="Content\images\icons-png\navigation-black.png" />
+    <Resource Include="Content\images\icons-png\navigation-white.png" />
+    <Resource Include="Content\images\icons-png\phone-black.png" />
+    <Resource Include="Content\images\icons-png\phone-white.png" />
+    <Resource Include="Content\images\icons-png\plus-black.png" />
+    <Resource Include="Content\images\icons-png\plus-white.png" />
+    <Resource Include="Content\images\icons-png\power-black.png" />
+    <Resource Include="Content\images\icons-png\power-white.png" />
+    <Resource Include="Content\images\icons-png\recycle-black.png" />
+    <Resource Include="Content\images\icons-png\recycle-white.png" />
+    <Resource Include="Content\images\icons-png\refresh-black.png" />
+    <Resource Include="Content\images\icons-png\refresh-white.png" />
+    <Resource Include="Content\images\icons-png\search-black.png" />
+    <Resource Include="Content\images\icons-png\search-white.png" />
+    <Resource Include="Content\images\icons-png\shop-black.png" />
+    <Resource Include="Content\images\icons-png\shop-white.png" />
+    <Resource Include="Content\images\icons-png\star-black.png" />
+    <Resource Include="Content\images\icons-png\star-white.png" />
+    <Resource Include="Content\images\icons-png\tag-black.png" />
+    <Resource Include="Content\images\icons-png\tag-white.png" />
+    <Resource Include="Content\images\icons-png\user-black.png" />
+    <Resource Include="Content\images\icons-png\user-white.png" />
+    <Resource Include="Content\images\icons-png\video-black.png" />
+    <Resource Include="Content\images\icons-png\video-white.png" />
+    <Content Include="Content\images\icons-svg\action-black.svg" />
+    <Content Include="Content\images\icons-svg\action-white.svg" />
+    <Content Include="Content\images\icons-svg\alert-black.svg" />
+    <Content Include="Content\images\icons-svg\alert-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-white.svg" />
+    <Content Include="Content\images\icons-svg\audio-black.svg" />
+    <Content Include="Content\images\icons-svg\audio-white.svg" />
+    <Content Include="Content\images\icons-svg\back-black.svg" />
+    <Content Include="Content\images\icons-svg\back-white.svg" />
+    <Content Include="Content\images\icons-svg\bars-black.svg" />
+    <Content Include="Content\images\icons-svg\bars-white.svg" />
+    <Content Include="Content\images\icons-svg\bullets-black.svg" />
+    <Content Include="Content\images\icons-svg\bullets-white.svg" />
+    <Content Include="Content\images\icons-svg\calendar-black.svg" />
+    <Content Include="Content\images\icons-svg\calendar-white.svg" />
+    <Content Include="Content\images\icons-svg\camera-black.svg" />
+    <Content Include="Content\images\icons-svg\camera-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-d-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-d-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-l-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-l-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-r-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-r-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-u-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-u-white.svg" />
+    <Content Include="Content\images\icons-svg\check-black.svg" />
+    <Content Include="Content\images\icons-svg\check-white.svg" />
+    <Content Include="Content\images\icons-svg\clock-black.svg" />
+    <Content Include="Content\images\icons-svg\clock-white.svg" />
+    <Content Include="Content\images\icons-svg\cloud-black.svg" />
+    <Content Include="Content\images\icons-svg\cloud-white.svg" />
+    <Content Include="Content\images\icons-svg\comment-black.svg" />
+    <Content Include="Content\images\icons-svg\comment-white.svg" />
+    <Content Include="Content\images\icons-svg\delete-black.svg" />
+    <Content Include="Content\images\icons-svg\delete-white.svg" />
+    <Content Include="Content\images\icons-svg\edit-black.svg" />
+    <Content Include="Content\images\icons-svg\edit-white.svg" />
+    <Content Include="Content\images\icons-svg\eye-black.svg" />
+    <Content Include="Content\images\icons-svg\eye-white.svg" />
+    <Content Include="Content\images\icons-svg\forbidden-black.svg" />
+    <Content Include="Content\images\icons-svg\forbidden-white.svg" />
+    <Content Include="Content\images\icons-svg\forward-black.svg" />
+    <Content Include="Content\images\icons-svg\forward-white.svg" />
+    <Content Include="Content\images\icons-svg\gear-black.svg" />
+    <Content Include="Content\images\icons-svg\gear-white.svg" />
+    <Content Include="Content\images\icons-svg\grid-black.svg" />
+    <Content Include="Content\images\icons-svg\grid-white.svg" />
+    <Content Include="Content\images\icons-svg\heart-black.svg" />
+    <Content Include="Content\images\icons-svg\heart-white.svg" />
+    <Content Include="Content\images\icons-svg\home-black.svg" />
+    <Content Include="Content\images\icons-svg\home-white.svg" />
+    <Content Include="Content\images\icons-svg\info-black.svg" />
+    <Content Include="Content\images\icons-svg\info-white.svg" />
+    <Content Include="Content\images\icons-svg\location-black.svg" />
+    <Content Include="Content\images\icons-svg\location-white.svg" />
+    <Content Include="Content\images\icons-svg\lock-black.svg" />
+    <Content Include="Content\images\icons-svg\lock-white.svg" />
+    <Content Include="Content\images\icons-svg\mail-black.svg" />
+    <Content Include="Content\images\icons-svg\mail-white.svg" />
+    <Content Include="Content\images\icons-svg\minus-black.svg" />
+    <Content Include="Content\images\icons-svg\minus-white.svg" />
+    <Content Include="Content\images\icons-svg\navigation-black.svg" />
+    <Content Include="Content\images\icons-svg\navigation-white.svg" />
+    <Content Include="Content\images\icons-svg\phone-black.svg" />
+    <Content Include="Content\images\icons-svg\phone-white.svg" />
+    <Content Include="Content\images\icons-svg\plus-black.svg" />
+    <Content Include="Content\images\icons-svg\plus-white.svg" />
+    <Content Include="Content\images\icons-svg\power-black.svg" />
+    <Content Include="Content\images\icons-svg\power-white.svg" />
+    <Content Include="Content\images\icons-svg\recycle-black.svg" />
+    <Content Include="Content\images\icons-svg\recycle-white.svg" />
+    <Content Include="Content\images\icons-svg\refresh-black.svg" />
+    <Content Include="Content\images\icons-svg\refresh-white.svg" />
+    <Content Include="Content\images\icons-svg\search-black.svg" />
+    <Content Include="Content\images\icons-svg\search-white.svg" />
+    <Content Include="Content\images\icons-svg\shop-black.svg" />
+    <Content Include="Content\images\icons-svg\shop-white.svg" />
+    <Content Include="Content\images\icons-svg\star-black.svg" />
+    <Content Include="Content\images\icons-svg\star-white.svg" />
+    <Content Include="Content\images\icons-svg\tag-black.svg" />
+    <Content Include="Content\images\icons-svg\tag-white.svg" />
+    <Content Include="Content\images\icons-svg\user-black.svg" />
+    <Content Include="Content\images\icons-svg\user-white.svg" />
+    <Content Include="Content\images\icons-svg\video-black.svg" />
+    <Content Include="Content\images\icons-svg\video-white.svg" />
+    <Content Include="Content\jquery.mobile-1.4.5.css" />
+    <Content Include="Content\jquery.mobile-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
