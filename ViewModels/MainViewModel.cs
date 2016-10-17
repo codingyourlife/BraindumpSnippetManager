@@ -268,14 +268,13 @@
             if (result == true)
             {
                 string filename = openDialog.FileName;
-                TextReader reader = new StreamReader(filename);
-
-                //render json
-                var fileContent = reader.ReadToEnd();
-                this.DeserializeList(fileContent);
-                this.SelectedSnippet = null;
-
-                reader.Close();
+                using (TextReader reader = new StreamReader(filename))
+                {
+                    //render json
+                    var fileContent = reader.ReadToEnd();
+                    this.DeserializeList(fileContent);
+                    this.SelectedSnippet = null;
+                }
             }
         }
         private void ExitItemClick(object sender, RoutedEventArgs e)

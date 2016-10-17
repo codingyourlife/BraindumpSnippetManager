@@ -1,6 +1,7 @@
 ﻿namespace SnippetManager.Interfaces
 {
     using ICSharpCode.AvalonEdit.Document;
+    using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
 
@@ -8,10 +9,12 @@
     {
         string Label { get; }
         string Data { get; }
-        TextDocument Document { get; }
         bool IsSeperator { get; }
         string ToString();
 
         Guid UniqueGuid { get; }
+
+        [JsonIgnore]
+        TextDocument Document { get; }
     }
 }
