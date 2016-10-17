@@ -19,12 +19,6 @@
                      SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}"
                      ContextMenu="{StaticResource ContextMenuSnippetsList}">
 
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="ToolTip" Value="{Binding ToolTipText}"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalAlignment="Stretch">
@@ -32,7 +26,11 @@
                                 <ColumnDefinition Width="15" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            
+
+                            <Grid.ToolTip>
+                                <avalonEdit:TextEditor xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" Name="FctbPreviewEditor" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="10pt" Document="{Binding Document}" />
+                            </Grid.ToolTip>
+
                             <TextBlock Text="{Binding Id}" Grid.Column="0" />
                             <TextBlock Text="{Binding Label}" Grid.Column="1" />
                         </Grid>

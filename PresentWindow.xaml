@@ -24,12 +24,6 @@
                   FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}"
                      SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}">
 
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="ToolTip" Value="{Binding ToolTipText}" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
-
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalAlignment="Stretch">
@@ -38,6 +32,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
+                            <Grid.ToolTip>
+                                <avalonEdit:TextEditor xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" Name="FctbPreviewEditor" FontFamily="Consolas" SyntaxHighlighting="C#" FontSize="10pt" Document="{Binding Document}" />
+                            </Grid.ToolTip>
+                            
                             <TextBlock Text="{Binding Id}" Grid.Column="0" />
                             <TextBlock Text="{Binding Label}" Grid.Column="1" />
                         </Grid>
@@ -46,7 +44,13 @@
             </ListBox>
         </Grid>
         <Grid Grid.Row="1" Name="TinyButtonBar">
-            <Button Content="o" ToolTip="Move to other side" Click="MoveButton" FontSize="6" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0" Content="o" ToolTip="Move to other side" Click="MoveButton" FontSize="3" />
+            <Button Grid.Column="1" Content="x" ToolTip="Close SnippetManager" Click="CloseButton" FontSize="3" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

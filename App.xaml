@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 
                 <ResourceDictionary Source="Styles/ContextMenuStyle.xaml" x:Shared="True"/>
+                <ResourceDictionary Source="Styles/TooltipStyle.xaml" x:Shared="True"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

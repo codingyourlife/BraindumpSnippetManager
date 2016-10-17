@@ -1,5 +1,6 @@
 ﻿namespace SnippetManager.Interfaces
 {
+    using ICSharpCode.AvalonEdit.Document;
     using System;
     using System.ComponentModel;
 
@@ -7,6 +8,7 @@
     {
         string Label { get; }
         string Data { get; }
+        TextDocument Document { get; }
         bool IsSeperator { get; }
         string ToString();
 

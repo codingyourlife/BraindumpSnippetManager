@@ -1,6 +1,7 @@
 ﻿namespace SnippetManager.Models
 {
     using GalaSoft.MvvmLight;
+    using ICSharpCode.AvalonEdit.Document;
     using Interfaces;
     using System;
     using System.Text.RegularExpressions;
@@ -38,14 +39,7 @@
             {
                 this.label = trimmer.Replace(value, " ").Replace("\r\n", "");
                 this.RaisePropertyChanged();
-                this.RaisePropertyChanged(nameof(this.ToolTipText));
-            }
-        }
-
-        public string ToolTipText {
-            get
-            {
-                return "#" + this.Label + "\r\n" + this.Data;
+                this.RaisePropertyChanged(nameof(this.Document));
             }
         }
 
@@ -59,9 +53,16 @@
             {
                 data = value;
                 this.RaisePropertyChanged();
-                this.RaisePropertyChanged(nameof(this.ToolTipText));
+                this.RaisePropertyChanged(nameof(this.Document));
             }
         }
+
+        public TextDocument Document {
+            get {
+                return new TextDocument(){ Text = this.Data };
+            }
+        }
+
         public bool IsSeperator { get { return false; } }
 
         private Guid uniqueGuid;

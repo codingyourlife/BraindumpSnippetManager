@@ -1,6 +1,5 @@
 ﻿namespace SnippetManager
 {
-    using System;
     using System.Windows;
     using ViewModels;
     using System.Windows.Controls;
@@ -44,6 +43,11 @@
                 this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
             else
                 this.Left = 0;
+        }
+
+        private void CloseButton(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

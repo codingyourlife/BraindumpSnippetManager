@@ -2,6 +2,7 @@
 {
     using System;
     using GalaSoft.MvvmLight;
+    using ICSharpCode.AvalonEdit.Document;
     using Interfaces;
 
     public class Seperator : ViewModelBase, ISnippetListItem
@@ -44,6 +45,14 @@
             get
             {
                 return uniqueGuid;
+            }
+        }
+
+        public TextDocument Document
+        {
+            get
+            {
+                return null;
             }
         }
     }
