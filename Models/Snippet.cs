@@ -59,7 +59,7 @@
 
         public TextDocument Document {
             get {
-                return new TextDocument(){ Text = this.Data };
+                return new TextDocument(){ Text = string.Format("#{0}\r\n{1}", this.Label, this.Data) };
             }
         }
 
