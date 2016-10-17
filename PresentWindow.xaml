@@ -50,7 +50,7 @@
             </Grid.ColumnDefinitions>
             
             <Button Grid.Column="0" Content="o" ToolTip="Move to other side" Click="MoveButton" FontSize="3" />
-            <Button Grid.Column="1" Content="x" ToolTip="Exit Present Mode" Click="CloseButton" FontSize="3" />
+            <Button Grid.Column="1" Content="x" ToolTip="Exit present mode" Click="CloseButton" FontSize="3" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>
