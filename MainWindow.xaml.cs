@@ -86,6 +86,7 @@
         private void EditWindowChange(object sender, PropertyChangedEventArgs e)
         {
             MainViewModel.SelectedSnippet = (Snippet)sender;
+            MainViewModel.IsDirty = true;
         }
 
         private void LstSnippets_PreviewKeyDown(object sender, KeyEventArgs e)
