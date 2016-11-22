@@ -6,7 +6,7 @@ Braindump Snippet Manager is a WPF application originally created by Nayden Goch
 Features:
 - Insert a code snippet from the clipboard into program
 - Delete code snippets
-- Preview of a code snippet when you mouse over 
+- Preview of a code snippet inclusive Syntax Highlighting when you mouse over
 - Backup your code snippets into a file (json)
 - Load your code snippets from a file
 - Create a separator for the code snippets that basically marks a start for a new demo/section.
