@@ -22,7 +22,7 @@
             InitializeMainMenu();
 
             this.OpenMenu = new RelayCommand(this.OpenMenuMethod);
-            this.InsertNewSnippet = new RelayCommand(this.InsertNewSnippetMethod);
+            this.InsertNewSnippet = new RelayCommand<bool>(this.InsertNewSnippetMethod);
             this.DeleteSnippet = new RelayCommand(this.DeleteSnippetMethod);
             this.MoveSnippetUp = new RelayCommand(this.MoveSnippetUpMethod);
             this.MoveSnippetDown = new RelayCommand(this.MoveSnippetDownMethod);
@@ -37,7 +37,7 @@
         public RelayCommand MoveSnippetUp { get; set; }
         public RelayCommand DeleteSnippet { get; set; }
 
-        public RelayCommand InsertNewSnippet { get; set; }
+        public RelayCommand<bool> InsertNewSnippet { get; set; }
 
         private void OpenMenuMethod()
         {
@@ -345,12 +345,7 @@
 
         public RelayCommand OpenMenu { get; private set; }
 
-        void InsertSnippetClick(object sender, RoutedEventArgs e)
-        {
-            InsertNewSnippetMethod();
-        }
-
-        public void InsertNewSnippetMethod()
+        public void InsertNewSnippetMethod(bool ignoreIfDuplicate = false)
         {
             this.IsDirty = true;
             string clipbaordData = null;
@@ -368,7 +363,7 @@
                 var clipboardString = clipbaordData as String;
                 if (clipboardString != null)
                 {
-                    if (!this.ItemWithDataExists(clipboardString))
+                    if (!ignoreIfDuplicate || !this.ItemWithDataExists(clipboardString))
                     {
                         this.AddSnippet(clipboardString);
                     }

@@ -38,7 +38,7 @@
         {
             if (this.MainViewModel.IsClipboardManager)
             {
-                MainViewModel.InsertNewSnippetMethod();
+                MainViewModel.InsertNewSnippetMethod(true);
             }
         }
 
