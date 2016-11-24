@@ -4,6 +4,7 @@
     using ViewModels;
     using System.Windows.Controls;
     using MahApps.Metro.Controls;
+    using Models;
 
 
     /// <summary>
@@ -48,6 +49,12 @@
         private void CloseButton(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void lstSnippets_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var ewl = new EditWindowLogic(this.MainViewModel, this.LstSnippets);
+            ewl.OpeningRequest(this.MainViewModel.SelectedSnippet);
         }
     }
 }

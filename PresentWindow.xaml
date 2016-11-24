@@ -22,7 +22,8 @@
         <Grid Grid.Row="0">
             <ListBox x:Name="LstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
                   FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}"
-                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}">
+                     SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}"
+                     MouseDoubleClick="lstSnippets_MouseDoubleClick">
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>

@@ -119,6 +119,7 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ISnippetListItem.cs" />
+    <Compile Include="Models\EditWindowLogic.cs" />
     <Compile Include="Models\Seperator.cs" />
     <Compile Include="Models\Snippet.cs" />
     <Compile Include="PresentWindow.xaml.cs">
@@ -128,8 +129,6 @@
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

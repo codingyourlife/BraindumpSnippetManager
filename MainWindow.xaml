@@ -15,7 +15,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <ListBox x:Name="LstSnippets" HorizontalContentAlignment="Stretch" SelectionMode="Single"
-                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" MouseDoubleClick="lstSnippets_MouseDoubleClick" PreviewKeyDown="LstSnippets_PreviewKeyDown"
+                  FontSize="12" ItemsSource="{Binding SnippetList, Mode=OneWay}" 
+                     MouseDoubleClick="lstSnippets_MouseDoubleClick" PreviewKeyDown="LstSnippets_PreviewKeyDown"
                      SelectedItem="{Binding SelectedSnippet, Mode=TwoWay}"
                      ContextMenu="{StaticResource ContextMenuSnippetsList}">
 

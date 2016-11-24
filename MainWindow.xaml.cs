@@ -72,21 +72,8 @@
 
         private void lstSnippets_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (LstSnippets.SelectedIndex != -1)
-            {
-                if(!MainViewModel.SelectedSnippet.IsSeperator)
-                {
-                    var editWindow = new EditWindow((Snippet)MainViewModel.SelectedSnippet);
-                    editWindow.Show();
-                    editWindow.EditViewModel.SnippetToEdit.PropertyChanged += EditWindowChange;
-                }
-            }
-        }
-
-        private void EditWindowChange(object sender, PropertyChangedEventArgs e)
-        {
-            MainViewModel.SelectedSnippet = (Snippet)sender;
-            MainViewModel.IsDirty = true;
+            var ewl = new EditWindowLogic(this.MainViewModel, this.LstSnippets);
+            ewl.OpeningRequest(this.MainViewModel.SelectedSnippet);
         }
 
         private void LstSnippets_PreviewKeyDown(object sender, KeyEventArgs e)
