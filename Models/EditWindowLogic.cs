@@ -27,8 +27,8 @@
                 if (!selectedSnippet.IsSeperator)
                 {
                     var editWindow = new EditWindow((Snippet)MainViewModel.SelectedSnippet);
-                    editWindow.Show();
                     editWindow.EditViewModel.SnippetToEdit.PropertyChanged += EditWindowChange;
+                    editWindow.Show();
                 }
             }
         }
