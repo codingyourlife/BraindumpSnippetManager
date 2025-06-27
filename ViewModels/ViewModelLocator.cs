@@ -1,7 +1,7 @@
 ﻿namespace SnippetManager
 {
+    using CommonServiceLocator;
     using GalaSoft.MvvmLight.Ioc;
-    using Microsoft.Practices.ServiceLocation;
     using ViewModels;
 
     public class ViewModelLocator
