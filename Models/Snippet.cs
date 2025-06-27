@@ -54,6 +54,7 @@
                 data = value;
                 this.RaisePropertyChanged();
                 this.RaisePropertyChanged(nameof(this.Document));
+                this.label = data;
             }
         }
 
