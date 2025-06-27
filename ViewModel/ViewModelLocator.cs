@@ -15,6 +15,7 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using SnippetManager.ViewModels;
 
 namespace SnippetManager.ViewModel
 {
