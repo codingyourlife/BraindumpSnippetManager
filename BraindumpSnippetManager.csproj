@@ -108,6 +108,7 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IClipboardActions.cs" />
+    <Compile Include="Interfaces\ISnippetFileService.cs" />
     <Compile Include="Interfaces\ISnippetListItemEditable.cs" />
     <Compile Include="Interfaces\ISnippetListItemReadonly.cs" />
     <Compile Include="Interfaces\ISnippetData.cs" />
@@ -118,6 +119,7 @@
       <DependentUpon>PresentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\ClipboardActions.cs" />
+    <Compile Include="Services\SnippetFileService.cs" />
     <Compile Include="SnippetLogic.cs" />
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

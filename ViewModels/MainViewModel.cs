@@ -1,7 +1,6 @@
 ﻿namespace SnippetManager.ViewModels
 {
     using System;
-    using System.IO;
     using GalaSoft.MvvmLight.Command;
     using System.Windows;
     using System.Windows.Controls;
@@ -10,17 +9,18 @@
     using Models;
     using Interfaces;
     using GalaSoft.MvvmLight;
-    using Newtonsoft.Json;
     using System.ComponentModel;
 
     public class MainViewModel : ViewModelBase, IDisposable
     {
         public IClipboardActions ClipboardActions { get; }
+        public ISnippetFileService FileService { get; }
         private bool _disposed = false;
 
-        public MainViewModel(IClipboardActions clipboardActions)
+        public MainViewModel(IClipboardActions clipboardActions, ISnippetFileService fileService)
         {
             ClipboardActions = clipboardActions ?? throw new ArgumentNullException(nameof(clipboardActions));
+            FileService = fileService ?? throw new ArgumentNullException(nameof(fileService));
             
             this.SnippetList = new ObservableCollection<ISnippetListItemReadOnly>();
 
@@ -204,17 +204,6 @@
             return this.SnippetList[selectedIndex];
         }
 
-        internal string SerializeList()
-        {
-            return JsonConvert.SerializeObject(this.SnippetList, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple });
-        }
-
-        internal void DeserializeList(string fileContent)
-        {
-            this.SnippetList = JsonConvert.DeserializeObject<ObservableCollection<ISnippetListItemReadOnly>>(fileContent, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
-            this.RaisePropertyChanged(nameof(this.SnippetList));
-        }
-
         private ContextMenu _mainMenu;
         private bool _isTopmost = true;
 
@@ -264,54 +253,20 @@
 
         public void Export()
         {
-            // Configure save file dialog box
-            Microsoft.Win32.SaveFileDialog saveDialog = new Microsoft.Win32.SaveFileDialog();
-            saveDialog.FileName = "New Snippet"; // Default file name
-            saveDialog.DefaultExt = ".json"; // Default file extension
-            saveDialog.Filter = "JSON documents (.json)|*.json"; // Filter files by extension
-
-            // Show save file dialog box
-            Nullable<bool> result = saveDialog.ShowDialog();
-
-            // Process save file dialog box results
-            if (result == true)
+            if (FileService.SaveSnippetsToFile(this.SnippetList))
             {
-                // Save document
-                string filename = saveDialog.FileName;
-
-                //serialize list as JSON
-                string jsonToSave = this.SerializeList();
-
-                TextWriter writer = new StreamWriter(filename);
-                writer.Write(jsonToSave);
-                writer.Close();
-
                 this.IsDirty = false;
             }
         }
 
         void ItemLoadClick(object sender, RoutedEventArgs e)
         {
-            // Configure save file dialog box
-            Microsoft.Win32.OpenFileDialog openDialog = new Microsoft.Win32.OpenFileDialog();
-            openDialog.FileName = "New Snippet"; // Default file name
-            openDialog.DefaultExt = ".json"; // Default file extension
-            openDialog.Filter = "JSON documents (.json)|*.json"; // Filter files by extension
-
-            // Show save file dialog box
-            Nullable<bool> result = openDialog.ShowDialog();
-
-            // Process load file dialog box results
-            if (result == true)
+            var loadedSnippets = FileService.LoadSnippetsFromFile();
+            if (loadedSnippets != null)
             {
-                string filename = openDialog.FileName;
-                using (TextReader reader = new StreamReader(filename))
-                {
-                    //render json
-                    var fileContent = reader.ReadToEnd();
-                    this.DeserializeList(fileContent);
-                    this.SelectedSnippet = null;
-                }
+                this.SnippetList = loadedSnippets;
+                this.RaisePropertyChanged(nameof(this.SnippetList));
+                this.SelectedSnippet = null;
             }
         }
         private void ExitItemClick(object sender, RoutedEventArgs e)

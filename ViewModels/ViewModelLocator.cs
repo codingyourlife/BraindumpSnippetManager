@@ -14,6 +14,7 @@
             
             // Register services
             SimpleIoc.Default.Register<IClipboardActions, ClipboardActions>();
+            SimpleIoc.Default.Register<ISnippetFileService, SnippetFileService>();
             
             // Register ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
