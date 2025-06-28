@@ -107,6 +107,7 @@
     <Compile Include="EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IClipboardActions.cs" />
     <Compile Include="Interfaces\ISnippetListItemEditable.cs" />
     <Compile Include="Interfaces\ISnippetListItemReadonly.cs" />
     <Compile Include="Interfaces\ISnippetData.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="PresentWindow.xaml.cs">
       <DependentUpon>PresentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ClipboardActions.cs" />
     <Compile Include="SnippetLogic.cs" />
     <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

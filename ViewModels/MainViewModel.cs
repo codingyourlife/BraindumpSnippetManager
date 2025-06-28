@@ -13,10 +13,15 @@
     using Newtonsoft.Json;
     using System.ComponentModel;
 
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IDisposable
     {
-        public MainViewModel()
+        public IClipboardActions ClipboardActions { get; }
+        private bool _disposed = false;
+
+        public MainViewModel(IClipboardActions clipboardActions)
         {
+            ClipboardActions = clipboardActions ?? throw new ArgumentNullException(nameof(clipboardActions));
+            
             this.SnippetList = new ObservableCollection<ISnippetListItemReadOnly>();
 
             InitializeMainMenu();
@@ -28,6 +33,35 @@
             this.MoveSnippetDown = new RelayCommand(this.MoveSnippetDownMethod);
             this.InsertSeperator = new RelayCommand(this.InsertSeperatorMethod);
             this.Exit = new RelayCommand(ExitMethod);
+
+            ClipboardActions.ClipboardUpdate += OnClipboardUpdate;
+        }
+
+        private void OnClipboardUpdate(object sender, EventArgs e)
+        {
+            if (this.IsClipboardManager)
+            {
+                this.InsertNewSnippetMethod(true);
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed && disposing)
+            {
+                if (ClipboardActions != null)
+                {
+                    ClipboardActions.ClipboardUpdate -= OnClipboardUpdate;
+                    ClipboardActions.Dispose();
+                }
+                _disposed = true;
+            }
         }
 
         public RelayCommand Exit { get; set; }
@@ -71,7 +105,7 @@
 
                 if (selectedSnippet != null && selectedSnippet is ISnippetListItemEditable)
                 {
-                    Clipboard.SetText((selectedSnippet as ISnippetListItemEditable).Data);
+                    ClipboardActions.SetText((selectedSnippet as ISnippetListItemEditable).Data);
                 }
 
                 this.RaisePropertyChanged();
@@ -79,7 +113,7 @@
         }
 
         public bool IsInPresentMode { get; set; }
-        public bool IsClipboardManager { get; set; }
+        public bool IsClipboardManager { get { return this.ClipboardActions.IsClipboardManagerListening; } }
 
         internal void SelectSnippet(ISnippetListItemReadOnly snippetListItem)
         {
@@ -308,12 +342,14 @@
                 if (this.IsClipboardManager)
                 {
                     item.IsChecked = false;
-                    this.IsClipboardManager = false;
+                    this.ClipboardActions.StopListening();
+                    this.RaisePropertyChanged(nameof(IsClipboardManager));
                 }
                 else
                 {
                     item.IsChecked = true;
-                    this.IsClipboardManager = true;
+                    this.ClipboardActions.StartListening();
+                    this.RaisePropertyChanged(nameof(IsClipboardManager));
                 }
             }
         }
@@ -351,15 +387,7 @@
         public void InsertNewSnippetMethod(bool ignoreIfDuplicate = false)
         {
             this.IsDirty = true;
-            string clipbaordData = null;
-            try
-            {
-                clipbaordData = Clipboard.GetText();
-            }
-            catch (Exception)
-            {
-                //this failed at least once...
-            }
+            string clipbaordData = ClipboardActions.GetText();
 
             if (clipbaordData != null)
             {

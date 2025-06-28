@@ -8,6 +8,7 @@
     using Models;
     using System.ComponentModel;
     using System.Windows.Controls;
+    using Interfaces;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,14 +20,11 @@
         /// </summary>
         public MainViewModel MainViewModel => DataContext as MainViewModel;
 
-        public ClipboardNotification SnippetLogic { get; set; }
-
         public MainWindow()
         {
             InitializeComponent();
 
-            //listen to clipboard
-            ClipboardNotification.ClipboardUpdate += ClipboardUpdate;
+            this.Closed += MainWindow_Closed;
 
             //Tooltip improvements like do not hide Tooltips fix (credit: http://stackoverflow.com/a/8308254/828184)
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(Int32.MaxValue));
@@ -34,11 +32,11 @@
             ToolTipService.BetweenShowDelayProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(0));
         }
 
-        private void ClipboardUpdate(object sender, EventArgs e)
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
-            if (this.MainViewModel.IsClipboardManager)
+            if (MainViewModel is IDisposable disposableViewModel)
             {
-                MainViewModel.InsertNewSnippetMethod(true);
+                disposableViewModel.Dispose();
             }
         }
 
@@ -51,13 +49,19 @@
 
         void ApplicationExit(object sender, ExitEventArgs e)
         {
+            if (MainViewModel is IDisposable disposableViewModel)
+            {
+                disposableViewModel.Dispose();
+            }
+            
             MainViewModel.ExitMethod();
         }
 
         private void PresentButton_Click(object sender, RoutedEventArgs e)
         {
             MainViewModel.IsInPresentMode = true;
-            MainViewModel.IsClipboardManager = false;
+            MainViewModel.ClipboardActions.StopListening();
+            MainViewModel.RaisePropertyChanged(nameof(MainViewModel.IsClipboardManager));
 
             var presentWindow = new PresentWindow();
             presentWindow.Show();

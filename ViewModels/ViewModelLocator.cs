@@ -3,12 +3,19 @@
     using CommonServiceLocator;
     using GalaSoft.MvvmLight.Ioc;
     using ViewModels;
+    using Interfaces;
+    using Services;
 
     public class ViewModelLocator
     {
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); //SimpleIoc container init
+            
+            // Register services
+            SimpleIoc.Default.Register<IClipboardActions, ClipboardActions>();
+            
+            // Register ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EditViewModel>();
 
