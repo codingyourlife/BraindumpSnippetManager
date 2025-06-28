@@ -20,7 +20,7 @@
             this.MainViewModel = mainViewModel;
         }
 
-        internal void OpeningRequest(ISnippetListItem selectedSnippet)
+        internal void OpeningRequest(ISnippetListItemReadOnly selectedSnippet)
         {
             if (LstSnippets.SelectedIndex != -1)
             {

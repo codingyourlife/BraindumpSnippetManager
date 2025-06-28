@@ -17,7 +17,7 @@
     {
         public MainViewModel()
         {
-            this.SnippetList = new ObservableCollection<ISnippetListItem>();
+            this.SnippetList = new ObservableCollection<ISnippetListItemReadOnly>();
 
             InitializeMainMenu();
 
@@ -51,15 +51,15 @@
             this.SelectedSnippet = modifiedSnippet;
         }
 
-        private ObservableCollection<ISnippetListItem>  snippetList = new ObservableCollection<ISnippetListItem>();
+        private ObservableCollection<ISnippetListItemReadOnly>  snippetList = new ObservableCollection<ISnippetListItemReadOnly>();
         private int SnippetCounter = 1;
 
-        public ObservableCollection<ISnippetListItem> SnippetList { get { return snippetList; } set { snippetList = value; } }
+        public ObservableCollection<ISnippetListItemReadOnly> SnippetList { get { return snippetList; } set { snippetList = value; } }
 
         public bool IsDirty { get; set; }
 
-        private ISnippetListItem selectedSnippet;
-        public ISnippetListItem SelectedSnippet
+        private ISnippetListItemReadOnly selectedSnippet;
+        public ISnippetListItemReadOnly SelectedSnippet
         {
             get
             {
@@ -69,9 +69,9 @@
             {
                 selectedSnippet = value;
 
-                if (selectedSnippet != null)
+                if (selectedSnippet != null && selectedSnippet is ISnippetListItemEditable)
                 {
-                    Clipboard.SetText(selectedSnippet.Data);
+                    Clipboard.SetText((selectedSnippet as ISnippetListItemEditable).Data);
                 }
 
                 this.RaisePropertyChanged();
@@ -81,7 +81,7 @@
         public bool IsInPresentMode { get; set; }
         public bool IsClipboardManager { get; set; }
 
-        internal void SelectSnippet(ISnippetListItem snippetListItem)
+        internal void SelectSnippet(ISnippetListItemReadOnly snippetListItem)
         {
             this.SelectedSnippet = snippetListItem;
             this.SelectedSnippet.PropertyChanged += SelectedSnippetChangedEvent;
@@ -89,7 +89,10 @@
 
         internal bool ItemWithDataExists(string data)
         {
-            return this.SnippetList.Any(x => x.Data == data);
+            return this.SnippetList
+                .Where(x => x is ISnippetListItemEditable)
+                .Cast<ISnippetListItemEditable>()
+                .Any(x => x.Data == data);
         }
 
         internal void SwapSnippets(int indexA, int indexB)
@@ -162,7 +165,7 @@
             this.RaisePropertyChanged(nameof(this.SnippetList));
         }
 
-        internal ISnippetListItem GetItemByListId(int selectedIndex)
+        internal ISnippetListItemReadOnly GetItemByListId(int selectedIndex)
         {
             return this.SnippetList[selectedIndex];
         }
@@ -174,7 +177,7 @@
 
         internal void DeserializeList(string fileContent)
         {
-            this.SnippetList = JsonConvert.DeserializeObject<ObservableCollection<ISnippetListItem>>(fileContent, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+            this.SnippetList = JsonConvert.DeserializeObject<ObservableCollection<ISnippetListItemReadOnly>>(fileContent, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
             this.RaisePropertyChanged(nameof(this.SnippetList));
         }
 

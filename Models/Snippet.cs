@@ -6,7 +6,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    public class Snippet : ViewModelBase, ISnippetListItem
+    public class Snippet : ViewModelBase, ISnippetListItemEditable
     {
         public Snippet()
         {

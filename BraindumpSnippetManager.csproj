@@ -107,7 +107,9 @@
     <Compile Include="EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ISnippetListItem.cs" />
+    <Compile Include="Interfaces\ISnippetListItemEditable.cs" />
+    <Compile Include="Interfaces\ISnippetListItemReadonly.cs" />
+    <Compile Include="Interfaces\ISnippetData.cs" />
     <Compile Include="Models\EditWindowLogic.cs" />
     <Compile Include="Models\Seperator.cs" />
     <Compile Include="Models\Snippet.cs" />

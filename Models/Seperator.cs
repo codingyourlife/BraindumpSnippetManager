@@ -5,7 +5,7 @@
     using ICSharpCode.AvalonEdit.Document;
     using Interfaces;
 
-    public class Seperator : ViewModelBase, ISnippetListItem
+    public class Seperator : ViewModelBase, ISnippetListItemReadOnly
     {
         public Seperator()
         {
@@ -13,14 +13,6 @@
         }
 
         private readonly string theSeparatorSnippet = " ---------------------------- ";
-
-        public string Data
-        {
-            get
-            {
-                return string.Empty;
-            }
-        }
 
         public bool IsSeperator
         {
