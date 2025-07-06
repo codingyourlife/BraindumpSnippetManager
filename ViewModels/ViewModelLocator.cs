@@ -21,7 +21,7 @@
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EditViewModel>();
 
-            SimpleIoc.Default.Register<IEditWindowLogic, EditWindowLogic>();
+            SimpleIoc.Default.Register<IEditWindowService, EditWindowService>();
         }
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>(); //returns singleton

@@ -17,7 +17,7 @@
         /// Access to the ViewModel.
         /// </summary>
         public MainViewModel MainViewModel => DataContext as MainViewModel;
-        public IEditWindowLogic ewl => ServiceLocator.Current.GetInstance<IEditWindowLogic>();
+        public IEditWindowService ews => ServiceLocator.Current.GetInstance<IEditWindowService>();
 
         public PresentWindow()
         {
@@ -55,7 +55,7 @@
 
         private void lstSnippets_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ewl.OpeningRequest(this.MainViewModel.SelectedSnippet);
+            ews.OpeningRequest(this.MainViewModel.SelectedSnippet);
         }
     }
 }

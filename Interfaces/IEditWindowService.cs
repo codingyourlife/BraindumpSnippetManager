@@ -1,6 +1,6 @@
 ﻿namespace SnippetManager.Interfaces
 {
-    public interface IEditWindowLogic
+    public interface IEditWindowService
     {
         void OpeningRequest(ISnippetListItemReadOnly selectedSnippet);
     }

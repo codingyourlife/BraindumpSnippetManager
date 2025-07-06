@@ -1,10 +1,11 @@
-﻿namespace SnippetManager.Models
+﻿namespace SnippetManager.Services
 {
     using SnippetManager.Interfaces;
+    using SnippetManager.Models;
     using System.ComponentModel;
     using ViewModels;
 
-    public class EditWindowLogic : IEditWindowLogic
+    public class EditWindowService : IEditWindowService
     {
         /// <summary>
         /// Access to the ViewModel.
@@ -12,7 +13,7 @@
         public MainViewModel MainViewModel;
 
 
-        public EditWindowLogic(MainViewModel mainViewModel)
+        public EditWindowService(MainViewModel mainViewModel)
         {
             this.MainViewModel = mainViewModel;
         }

@@ -108,12 +108,12 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IClipboardActions.cs" />
-    <Compile Include="Interfaces\IEditWindowLogic.cs" />
+    <Compile Include="Interfaces\IEditWindowService.cs" />
     <Compile Include="Interfaces\ISnippetFileService.cs" />
     <Compile Include="Interfaces\ISnippetListItemEditable.cs" />
     <Compile Include="Interfaces\ISnippetListItemReadonly.cs" />
     <Compile Include="Interfaces\ISnippetData.cs" />
-    <Compile Include="Models\EditWindowLogic.cs" />
+    <Compile Include="Services\EditWindowService.cs" />
     <Compile Include="Models\Seperator.cs" />
     <Compile Include="Models\Snippet.cs" />
     <Compile Include="PresentWindow.xaml.cs">
@@ -219,6 +219,7 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
