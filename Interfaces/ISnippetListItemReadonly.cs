@@ -1,15 +1,14 @@
-﻿namespace SnippetManager.Interfaces
+﻿namespace SnippetManager.Interfaces;
+
+using System;
+using System.ComponentModel;
+
+public interface ISnippetListItemReadOnly : INotifyPropertyChanged
 {
-    using System;
-    using System.ComponentModel;
+    string Label { get; }
+    bool IsSeperator { get; }
+    string ToString();
 
-    public interface ISnippetListItemReadOnly : INotifyPropertyChanged
-    {
-        string Label { get; }
-        bool IsSeperator { get; }
-        string ToString();
+    Guid UniqueGuid { get; }
 
-        Guid UniqueGuid { get; }
-
-    }
 }

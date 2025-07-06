@@ -1,20 +1,18 @@
-namespace SnippetManager.Interfaces
+namespace SnippetManager.Interfaces;
+
+using System.Collections.ObjectModel;
+
+public interface ISnippetFileService
 {
-    using System.Collections.ObjectModel;
-    using System.Threading.Tasks;
+    string SerializeSnippets(ObservableCollection<ISnippetListItemReadOnly> snippets);
 
-    public interface ISnippetFileService
-    {
-        string SerializeSnippets(ObservableCollection<ISnippetListItemReadOnly> snippets);
+    ObservableCollection<ISnippetListItemReadOnly> DeserializeSnippets(string jsonContent);
 
-        ObservableCollection<ISnippetListItemReadOnly> DeserializeSnippets(string jsonContent);
+    bool SaveSnippetsToFile(ObservableCollection<ISnippetListItemReadOnly> snippets, string defaultFileName = "New Snippet");
 
-        bool SaveSnippetsToFile(ObservableCollection<ISnippetListItemReadOnly> snippets, string defaultFileName = "New Snippet");
+    ObservableCollection<ISnippetListItemReadOnly> LoadSnippetsFromFile(string defaultFileName = "New Snippet");
 
-        ObservableCollection<ISnippetListItemReadOnly> LoadSnippetsFromFile(string defaultFileName = "New Snippet");
+    bool SaveSnippetsToPath(ObservableCollection<ISnippetListItemReadOnly> snippets, string filePath);
 
-        bool SaveSnippetsToPath(ObservableCollection<ISnippetListItemReadOnly> snippets, string filePath);
-
-        ObservableCollection<ISnippetListItemReadOnly> LoadSnippetsFromPath(string filePath);
-    }
-} 
+    ObservableCollection<ISnippetListItemReadOnly> LoadSnippetsFromPath(string filePath);
+}

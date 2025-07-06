@@ -1,22 +1,21 @@
-﻿using GalaSoft.MvvmLight;
+﻿namespace SnippetManager.ViewModels;
+
+using GalaSoft.MvvmLight;
 using SnippetManager.Models;
 
-namespace SnippetManager.ViewModels
+public class EditViewModel :ViewModelBase
 {
-    public class EditViewModel :ViewModelBase
-    {
-        private Snippet snippetToEdit;
+    private Snippet snippetToEdit;
 
-        public Snippet SnippetToEdit {
-            get
-            {
-                return snippetToEdit;
-            }
-            set
-            {
-                snippetToEdit = value;
-                this.RaisePropertyChanged();
-            }
+    public Snippet SnippetToEdit {
+        get
+        {
+            return snippetToEdit;
+        }
+        set
+        {
+            snippetToEdit = value;
+            this.RaisePropertyChanged();
         }
     }
 }

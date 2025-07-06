@@ -1,13 +1,11 @@
-﻿using ICSharpCode.AvalonEdit.Document;
+﻿namespace SnippetManager.Interfaces;
+
+using ICSharpCode.AvalonEdit.Document;
 using Newtonsoft.Json;
-
-namespace SnippetManager.Interfaces
+public interface ISnippetData
 {
-    public interface ISnippetData
-    {
-        string Data { get; }
+    string Data { get; }
 
-        [JsonIgnore]
-        TextDocument Document { get; }
-    }
+    [JsonIgnore]
+    TextDocument Document { get; }
 }

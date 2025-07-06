@@ -1,51 +1,50 @@
-﻿namespace SnippetManager.Models
+﻿namespace SnippetManager.Models;
+
+using System;
+using GalaSoft.MvvmLight;
+using ICSharpCode.AvalonEdit.Document;
+using Interfaces;
+
+public class Seperator : ViewModelBase, ISnippetListItemReadOnly
 {
-    using System;
-    using GalaSoft.MvvmLight;
-    using ICSharpCode.AvalonEdit.Document;
-    using Interfaces;
-
-    public class Seperator : ViewModelBase, ISnippetListItemReadOnly
+    public Seperator()
     {
-        public Seperator()
+        this.uniqueGuid = Guid.NewGuid();
+    }
+
+    private readonly string theSeparatorSnippet = " ---------------------------- ";
+
+    public bool IsSeperator
+    {
+        get
         {
-            this.uniqueGuid = Guid.NewGuid();
+            return true;
         }
+    }
 
-        private readonly string theSeparatorSnippet = " ---------------------------- ";
-
-        public bool IsSeperator
+    public string Label
+    {
+        get
         {
-            get
-            {
-                return true;
-            }
+            return this.theSeparatorSnippet;
         }
+    }
 
-        public string Label
+    private Guid uniqueGuid;
+
+    public Guid UniqueGuid
+    {
+        get
         {
-            get
-            {
-                return this.theSeparatorSnippet;
-            }
+            return uniqueGuid;
         }
+    }
 
-        private Guid uniqueGuid;
-
-        public Guid UniqueGuid
+    public TextDocument Document
+    {
+        get
         {
-            get
-            {
-                return uniqueGuid;
-            }
-        }
-
-        public TextDocument Document
-        {
-            get
-            {
-                return null;
-            }
+            return null;
         }
     }
 }

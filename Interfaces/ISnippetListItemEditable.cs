@@ -1,6 +1,5 @@
-﻿namespace SnippetManager.Interfaces
+﻿namespace SnippetManager.Interfaces;
+
+public interface ISnippetListItemEditable : ISnippetListItemReadOnly, ISnippetData
 {
-    public interface ISnippetListItemEditable : ISnippetListItemReadOnly, ISnippetData
-    {
-    }
 }
