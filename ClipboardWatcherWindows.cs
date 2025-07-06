@@ -3,14 +3,16 @@
 /// </summary>
 namespace SnippetManager;
 
+using SnippetManager.Interfaces;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 /// <summary>
 /// Provides notifications when the contents of the clipboard is updated.
 /// </summary>
-public sealed class ClipboardNotification
+public sealed class ClipboardWatcherWindows : IClipboardWatcher
 {
     /// <summary>
     /// Occurs when the contents of the clipboard is updated.
@@ -48,21 +50,21 @@ public sealed class ClipboardNotification
             base.WndProc(ref m);
         }
     }
-}
+    
+    private static class NativeMethods
+    {
+        // See http://msdn.microsoft.com/en-us/library/ms649021%28v=vs.85%29.aspx
+        public const int WM_CLIPBOARDUPDATE = 0x031D;
+        public static IntPtr HWND_MESSAGE = new IntPtr(-3);
 
-internal static class NativeMethods
-{
-    // See http://msdn.microsoft.com/en-us/library/ms649021%28v=vs.85%29.aspx
-    public const int WM_CLIPBOARDUPDATE = 0x031D;
-    public static IntPtr HWND_MESSAGE = new IntPtr(-3);
+        // See http://msdn.microsoft.com/en-us/library/ms632599%28VS.85%29.aspx#message_only
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
 
-    // See http://msdn.microsoft.com/en-us/library/ms632599%28VS.85%29.aspx#message_only
-    [DllImport("user32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool AddClipboardFormatListener(IntPtr hwnd);
-
-    // See http://msdn.microsoft.com/en-us/library/ms633541%28v=vs.85%29.aspx
-    // See http://msdn.microsoft.com/en-us/library/ms649033%28VS.85%29.aspx
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        // See http://msdn.microsoft.com/en-us/library/ms633541%28v=vs.85%29.aspx
+        // See http://msdn.microsoft.com/en-us/library/ms649033%28VS.85%29.aspx
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+    }
 }

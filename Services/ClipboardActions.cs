@@ -54,7 +54,8 @@ public class ClipboardActions : IClipboardActions
     /// </summary>
     public void StartListening()
     {
-        ClipboardNotification.ClipboardUpdate += OnClipboardNotificationUpdate;
+        ClipboardWatcher.StartListening();
+        ClipboardWatcher.ClipboardUpdate += OnClipboardNotificationUpdate;
         IsClipboardManagerListening = true;
     }
 
@@ -63,7 +64,8 @@ public class ClipboardActions : IClipboardActions
     /// </summary>
     public void StopListening()
     {
-        ClipboardNotification.ClipboardUpdate -= OnClipboardNotificationUpdate;
+        ClipboardWatcher.StopListening();
+        ClipboardWatcher.ClipboardUpdate -= OnClipboardNotificationUpdate;
         IsClipboardManagerListening = false;
     }
 
