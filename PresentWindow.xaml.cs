@@ -5,6 +5,7 @@
     using System.Windows.Controls;
     using MahApps.Metro.Controls;
     using Models;
+    using CommonServiceLocator;
 
 
     /// <summary>
@@ -16,6 +17,7 @@
         /// Access to the ViewModel.
         /// </summary>
         public MainViewModel MainViewModel => DataContext as MainViewModel;
+        public IEditWindowLogic ewl => ServiceLocator.Current.GetInstance<IEditWindowLogic>();
 
         public PresentWindow()
         {
@@ -53,7 +55,6 @@
 
         private void lstSnippets_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var ewl = new EditWindowLogic(this.MainViewModel, this.LstSnippets);
             ewl.OpeningRequest(this.MainViewModel.SelectedSnippet);
         }
     }

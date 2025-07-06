@@ -1,35 +1,39 @@
 ﻿namespace SnippetManager.Models
 {
-    using System.Windows.Controls;
     using SnippetManager.Interfaces;
     using System.ComponentModel;
     using ViewModels;
 
-    public class EditWindowLogic
+    public interface IEditWindowLogic
+    {
+        void OpeningRequest(ISnippetListItemReadOnly selectedSnippet);
+    }
+
+    public class EditWindowLogic : IEditWindowLogic
     {
         /// <summary>
         /// Access to the ViewModel.
         /// </summary>
         public MainViewModel MainViewModel;
 
-        private ListBox LstSnippets;
 
-        public EditWindowLogic(MainViewModel mainViewModel, ListBox lstSnippets)
+        public EditWindowLogic(MainViewModel mainViewModel)
         {
-            this.LstSnippets = lstSnippets;
             this.MainViewModel = mainViewModel;
         }
 
-        internal void OpeningRequest(ISnippetListItemReadOnly selectedSnippet)
+        public void OpeningRequest(ISnippetListItemReadOnly selectedSnippet)
         {
-            if (LstSnippets.SelectedIndex != -1)
+            if(selectedSnippet == null)
             {
-                if (!selectedSnippet.IsSeperator)
-                {
-                    var editWindow = new EditWindow((Snippet)MainViewModel.SelectedSnippet);
-                    editWindow.EditViewModel.SnippetToEdit.PropertyChanged += EditWindowChange;
-                    editWindow.Show();
-                }
+                return;
+            }
+
+            if (!selectedSnippet.IsSeperator)
+            {
+                var editWindow = new EditWindow((Snippet)MainViewModel.SelectedSnippet);
+                editWindow.EditViewModel.SnippetToEdit.PropertyChanged += EditWindowChange;
+                editWindow.Show();
             }
         }
 

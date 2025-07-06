@@ -5,6 +5,7 @@
     using ViewModels;
     using Interfaces;
     using Services;
+    using SnippetManager.Models;
 
     public class ViewModelLocator
     {
@@ -20,8 +21,7 @@
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EditViewModel>();
 
-            // IoC Dependency Injection - reslove configuration
-            //SimpleIoc.Default.Register<IStreamingApp, TvNetflixApp>();
+            SimpleIoc.Default.Register<IEditWindowLogic, EditWindowLogic>();
         }
 
         public MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>(); //returns singleton
