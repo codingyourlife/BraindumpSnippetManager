@@ -4,11 +4,6 @@
     using System.ComponentModel;
     using ViewModels;
 
-    public interface IEditWindowLogic
-    {
-        void OpeningRequest(ISnippetListItemReadOnly selectedSnippet);
-    }
-
     public class EditWindowLogic : IEditWindowLogic
     {
         /// <summary>

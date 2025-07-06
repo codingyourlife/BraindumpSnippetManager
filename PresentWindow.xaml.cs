@@ -4,8 +4,8 @@
     using ViewModels;
     using System.Windows.Controls;
     using MahApps.Metro.Controls;
-    using Models;
     using CommonServiceLocator;
+    using SnippetManager.Interfaces;
 
 
     /// <summary>

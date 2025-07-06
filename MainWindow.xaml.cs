@@ -5,9 +5,9 @@
     using System.Windows.Input;
     using MahApps.Metro.Controls;
     using ViewModels;
-    using Models;
     using System.Windows.Controls;
     using CommonServiceLocator;
+    using SnippetManager.Interfaces;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
